@@ -3,6 +3,7 @@ package ru.netology.manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Ticket;
+import ru.netology.domain.TicketComparator;
 import ru.netology.repository.TicketRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,12 +12,13 @@ class TicketManagerTest {
 
     TicketRepository repository = new TicketRepository();
     TicketManager manager = new TicketManager(repository);
+    TicketComparator comparator = new TicketComparator();
     Ticket route1 = new Ticket(1,7500, "LED", "GOJ",150 );
     Ticket route2 = new Ticket(2,1500, "GOJ", "LED",150 );
-    Ticket route3 = new Ticket(3,3500, "LED", "GOJ",150 );
+    Ticket route3 = new Ticket(3,3500, "LED", "GOJ",120 );
     Ticket route4 = new Ticket(4,1500, "KUF", "LED",150 );
     Ticket route5 = new Ticket(5,1500, "LED", "KUF",150 );
-    Ticket route6 = new Ticket(6,5100, "LED", "GOJ",150 );
+    Ticket route6 = new Ticket(6,3500, "LED", "GOJ",50 );
 
     @BeforeEach
     void setUp() {
@@ -29,16 +31,16 @@ class TicketManagerTest {
     }
 
     @Test
-    void shouldFindAllAndSortByCost() {
-        Ticket[] actual = manager.findAll("LED","GOJ");
-        Ticket[] expected = {route3,route6,route1};
+    void shouldFindAllAndSortByCostAndTime() {
+        Ticket[] actual = manager.findAll("LED","GOJ", comparator);
+        Ticket[] expected = {route6,route3,route1};
 
         assertArrayEquals(expected,actual);
     }
 
     @Test
     void shouldNotFindAll() {
-        Ticket[] actual = manager.findAll("FRU","GOJ");
+        Ticket[] actual = manager.findAll("FRU","GOJ",comparator);
         Ticket[] expected = {};
 
         assertArrayEquals(expected,actual);

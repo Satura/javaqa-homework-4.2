@@ -18,11 +18,11 @@ public class TicketManager {
         repository.save(item);
     }
 
-    public Ticket[] getAll(){
+    public Ticket[] getAll() {
         return repository.findAll();
     }
 
-    public Ticket[] findAll (String from, String to,  Comparator<Ticket> comparator) {
+    public Ticket[] findAll(String from, String to, Comparator<Ticket> comparator) {
         Ticket[] result = new Ticket[0];
 
         for (Ticket item : repository.findAll()) {
@@ -32,8 +32,8 @@ public class TicketManager {
                 tmp[tmp.length - 1] = item;
                 result = tmp;
             }
-            Arrays.sort(result, comparator);
         }
+        Arrays.sort(result, comparator);
 
         return result;
     }
@@ -43,10 +43,6 @@ public class TicketManager {
     }
 
     public void removeByID(int id) {
-        try {
-            repository.removeByID(id);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        repository.removeByID(id);
     }
 }

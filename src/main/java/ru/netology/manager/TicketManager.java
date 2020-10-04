@@ -33,8 +33,8 @@ public class TicketManager {
                 result = tmp;
             }
         }
+        
         Arrays.sort(result, comparator);
-
         return result;
     }
 
